@@ -1,0 +1,22 @@
+{
+  "name": "kba-team/phinx-cake2",
+  "description": "Easy usage of Phinx with CakePHP2",
+  "type": "tools",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Josef S.",
+      "email": "16034383+stosef@users.noreply.github.com",
+      "role": "developer"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": "^7.0",
+    "cakephp/cakephp": "^2.4",
+    "robmorgan/phinx": "^0.12.9"
+  },
+  "bin": [
+    "bin/phinx-cake2.sh"
+  ]
+}

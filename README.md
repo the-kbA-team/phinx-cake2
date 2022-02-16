@@ -1,0 +1,36 @@
+# Phinx for CakePHP2
+
+[Phinx] is the default tool for database migrations in CakePHP3 and CakePHP4. Phinx can be used as a standalone tool,
+so it is possible to use it with CakePHP2. This project makes usage of Phinx with CakePHP2 less complicated.
+
+## Prerequisites
+
+* PHP >= 7.0
+* CakePHP2 installed via composer
+* Mysql (no other DB supported a the moment)
+* Migrations in folder Config/Migrations
+* Seeds in folder Config/Seeds
+
+## What does it do?
+
+This package provides a helper script and a default Phinx config file for usage with you CakePHP2 project.
+
+By using the helper script it is not necessary to create a Phinx configuration for your project.
+
+## Installation
+
+ ```bash
+composer require kba-team/phinx-cake2
+```
+
+## Usage
+
+Usage: `phinx-cake2.sh [command] [arguments] [options]`
+
+## Example
+
+```bash
+./vendor/bin/phinx-cake2.sh migrate
+```
+
+[Phinx]:https://phinx.org/

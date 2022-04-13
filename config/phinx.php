@@ -43,12 +43,18 @@ $plugin = getenv('PLUGIN');
 $migrationRoot = ROOT;
 
 if (!empty($plugin)) {
+    $found = false;
     foreach (App::path('plugins') as $path) {
         $pluginRoot = $path . $plugin;
-        if (file_exists($path)) {
+        if (file_exists($pluginRoot)) {
             $migrationRoot =  $pluginRoot;
+            $found = true;
             break;
         }
+    }
+
+    if (!$found) {
+        throw new exception(sprintf('Could not find plugin directory for plugin "%s"', $plugin));
     }
 }
 

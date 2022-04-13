@@ -36,11 +36,27 @@ if (!include CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'bootstrap.php') {
 App::uses('ConnectionManager', 'Model');
 $dbConfig = ConnectionManager::getDataSource('default');
 
+/**
+ * Plugin handling
+ */
+$plugin = getenv('PLUGIN');
+$migrationRoot = ROOT;
+
+if (!empty($plugin)) {
+    foreach (App::path('plugins') as $path) {
+        $pluginRoot = $path . $plugin;
+        if (file_exists($path)) {
+            $migrationRoot =  $pluginRoot;
+            break;
+        }
+    }
+}
+
 return
 [
     'paths' => [
-        'migrations' => ROOT.'/Config/Migrations',
-        'seeds' => ROOT.'/Config/Seeds'
+        'migrations' => $migrationRoot . '/Config/Migrations',
+        'seeds' =>  $migrationRoot . '/Config/Seeds'
     ],
     'environments' => [
         'default_migration_table' => 'phinxlog',

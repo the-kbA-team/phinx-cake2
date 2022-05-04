@@ -33,4 +33,11 @@ Usage: `phinx-cake2.sh [command] [arguments] [options]`
 ./vendor/bin/phinx-cake2.sh migrate
 ```
 
+If you want to migrate a plugin's migration.
+
+```bash
+PLUGIN=<plugin_name> ./vendor/bin/phinx-cake2.sh migrate
+```
+
+
 [Phinx]:https://phinx.org/

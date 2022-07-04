@@ -39,5 +39,11 @@ If you want to migrate a plugin's migration.
 PLUGIN=<plugin_name> ./vendor/bin/phinx-cake2.sh migrate
 ```
 
+In case the plugin uses its own database, you need to set the following in a file called `phinx.php` in the plugin's Config directory.
+
+```php
+Configure::write('phinx.datasource', "<datasource name>");
+```
+
 
 [Phinx]:https://phinx.org/

@@ -48,7 +48,7 @@ canonicalize() {
 
 SELF=$(canonicalize "$0")
 PARENT_DIR=$(dirname "$(dirname -- "${SELF}")")
-VENDOR_BIN_DIR=$(dirname "$(dirname -- "$PARENT_DIR")")/bin
+VENDOR_BIN_DIR="$COMPOSER_RUNTIME_BIN_DIR"
 PHINX_CFG_FILE="$PARENT_DIR"/config/phinx.php
 
 for i in "$@"; do

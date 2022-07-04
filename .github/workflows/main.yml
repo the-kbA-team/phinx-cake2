@@ -30,4 +30,22 @@ jobs:
         env:
           SHELLCHECK_OPTS: --shell=dash
         with:
-          additional_files: 'bin/*.sh'
+          additional_files: 'bin/phinx-cake2.sh'
+
+  # Composer config validation
+  composer:
+    name: Composer config validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Validate composer.json
+        run: composer validate --strict
+
+  # PHP syntax validation
+  php:
+    name: PHP syntax validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check PHP syntax of config/phinx.php
+        run: php -l config/phinx.php

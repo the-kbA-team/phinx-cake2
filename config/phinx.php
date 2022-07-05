@@ -33,8 +33,6 @@ if (!include CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'bootstrap.php') {
     trigger_error('CakePHP core could not be found. CakePHP core should be at "'.CAKE_CORE_INCLUDE_PATH.'"', E_USER_ERROR);
 }
 
-App::uses('ConnectionManager', 'Model');
-$dbConfig = ConnectionManager::getDataSource('default');
 
 /**
  * Plugin handling
@@ -58,11 +56,23 @@ if (!empty($plugin)) {
     }
 }
 
-return
-[
+$dataSource = 'default';
+$pluginConfig = sprintf('%1$s%2$sConfig%2$sphinx.php', $migrationRoot, DS);
+if (file_exists($pluginConfig)) {
+    require_once $pluginConfig;
+    if (Configure::check('phinx.datasource')) {
+        $dataSource = Configure::read('phinx.datasource');
+    }
+}
+
+App::uses('ConnectionManager', 'Model');
+$dbConfig = ConnectionManager::getDataSource($dataSource);
+
+
+return [
     'paths' => [
-        'migrations' => $migrationRoot . '/Config/Migrations',
-        'seeds' =>  $migrationRoot . '/Config/Seeds'
+        'migrations' => sprintf('%1$s%2$sConfig%2$sMigrations', $migrationRoot, DS),
+        'seeds' =>  sprintf('%1$s%2$sConfig%2$sSeeds', $migrationRoot, DS),
     ],
     'environments' => [
         'default_migration_table' => 'phinxlog',

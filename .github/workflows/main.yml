@@ -65,3 +65,19 @@ jobs:
           php_version: 7.4
           configuration: phpstan.neon
           path: config/
+
+  # phpstan php 8.0
+  phpstan-80:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: php-actions/composer@v6
+        with:
+          php_version: 8.0
+
+      - name: PHPStan Static Analysis
+        uses: php-actions/phpstan@v3
+        with:
+          php_version: 8.0
+          configuration: phpstan.neon
+          path: config/

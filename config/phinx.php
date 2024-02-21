@@ -62,6 +62,9 @@ if (file_exists($pluginConfig)) {
     require_once $pluginConfig;
     if (Configure::check('phinx.datasource')) {
         $dataSource = Configure::read('phinx.datasource');
+	if (!is_string($dataSource)) {
+		$dataSource = 'default';
+	}
     }
 }
 

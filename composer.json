@@ -18,5 +18,8 @@
   },
   "bin": [
     "bin/phinx-cake2.sh"
-  ]
+  ],
+  "require-dev": {
+    "phpstan/phpstan": "^1.10"
+  }
 }

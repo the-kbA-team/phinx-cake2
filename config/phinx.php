@@ -1,5 +1,4 @@
 <?php
-
 if (!defined('DS')) {
     define('DS', DIRECTORY_SEPARATOR);
 }
@@ -33,7 +32,6 @@ if (!include CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'bootstrap.php') {
     trigger_error('CakePHP core could not be found. CakePHP core should be at "'.CAKE_CORE_INCLUDE_PATH.'"', E_USER_ERROR);
 }
 
-
 /**
  * Plugin handling
  */
@@ -62,15 +60,14 @@ if (file_exists($pluginConfig)) {
     require_once $pluginConfig;
     if (Configure::check('phinx.datasource')) {
         $dataSource = Configure::read('phinx.datasource');
-	if (!is_string($dataSource)) {
-		$dataSource = 'default';
-	}
+        if (!is_string($dataSource)) {
+            $dataSource = 'default';
+        }
     }
 }
 
 App::uses('ConnectionManager', 'Model');
 $dbConfig = ConnectionManager::getDataSource($dataSource);
-
 
 return [
     'paths' => [

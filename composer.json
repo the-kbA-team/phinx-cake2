@@ -12,7 +12,7 @@
   ],
   "minimum-stability": "stable",
   "require": {
-    "php": ">=7.4 <=8.3",
+    "php": ">=7.4 <8.4",
     "cakephp/cakephp": "^2.4",
     "robmorgan/phinx": "^0.12.9"
   },

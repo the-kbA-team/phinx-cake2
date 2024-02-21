@@ -63,4 +63,5 @@ jobs:
         uses: php-actions/phpstan@v3
         with:
           php_version: 7.4
+          configuration: phpstan.neon
           path: config/

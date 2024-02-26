@@ -58,11 +58,8 @@ $dataSource = 'default';
 $pluginConfig = sprintf('%1$s%2$sConfig%2$sphinx.php', $migrationRoot, DS);
 if (file_exists($pluginConfig)) {
     require_once $pluginConfig;
-    if (Configure::check('phinx.datasource')) {
+    if (Configure::check('phinx.datasource') && is_string(Configure::read('phinx.datasource'))) {
         $dataSource = Configure::read('phinx.datasource');
-        if (!is_string($dataSource)) {
-            $dataSource = 'default';
-        }
     }
 }
 

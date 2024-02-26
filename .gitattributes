@@ -2,4 +2,5 @@
 .gitattributes  export-ignore
 .gitignore      export-ignore
 composer.*      export-ignore
+phpstan.*       export-ignore
 README.*        export-ignore

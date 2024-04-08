@@ -15,7 +15,12 @@ if (null === $cakephpDir) {
     if (!is_string($composerInstalledJsonEncoded)) {
         throw new Exception('Could not read composer/installed.json');
     }
-    $composerInstalled = json_decode($composerInstalledJsonEncoded);
+    try {
+        /** @var StdClass $composerInstalled */
+        $composerInstalled = json_decode($composerInstalledJsonEncoded, false, 512, JSON_THROW_ON_ERROR);
+    } catch (JsonException $e) {
+        throw new Exception('Could not read composer/installed.json');
+    }
     foreach ($composerInstalled->packages as $packageInfo) {
         if (isset($packageInfo->replace->{'cakephp/cakephp'})) {
             $cakephpDir = \Composer\InstalledVersions::getInstallPath($packageInfo->name);

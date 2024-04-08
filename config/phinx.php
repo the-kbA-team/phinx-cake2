@@ -5,6 +5,33 @@ if (!defined('DS')) {
 
 $vendorDir = dirname(dirname(dirname(dirname(__FILE__))));
 
+// Easiest case: cakephp/cakephp is installed
+$cakephpDir = \Composer\InstalledVersions::getInstallPath("cakephp/cakephp");
+
+// More complex case, cakephp/cakephp is replaced by another package
+if (null === $cakephpDir) {
+    $composerInstalledJson = $vendorDir . DS . 'composer/installed.json';
+    $composerInstalledJsonEncoded = file_get_contents($composerInstalledJson);
+    if (!is_string($composerInstalledJsonEncoded)) {
+        throw new Exception('Could not read composer/installed.json');
+    }
+    try {
+        /** @var StdClass $composerInstalled */
+        $composerInstalled = json_decode($composerInstalledJsonEncoded, false, 512, JSON_THROW_ON_ERROR);
+    } catch (JsonException $e) {
+        throw new Exception('Could not read composer/installed.json');
+    }
+    foreach ($composerInstalled->packages as $packageInfo) {
+        if (isset($packageInfo->replace->{'cakephp/cakephp'})) {
+            $cakephpDir = \Composer\InstalledVersions::getInstallPath($packageInfo->name);
+            break;
+        }
+    }
+}
+$cakephpLibDir = $cakephpDir . DS . 'lib';
+
+define('CAKE_CORE_INCLUDE_PATH', $cakephpLibDir);
+
 if (!defined('ROOT')) {
     define('ROOT', dirname($vendorDir));
 }
@@ -23,9 +50,6 @@ if (!defined('WWW_ROOT')) {
 if (!defined('CONFIG')) {
     define('CONFIG', ROOT . DS . APP_DIR . DS . 'Config' . DS);
 }
-
-$pathCakeInVendorDir = $vendorDir . DS . 'cakephp' . DS . 'cakephp' . DS . 'lib';
-define('CAKE_CORE_INCLUDE_PATH', $pathCakeInVendorDir);
 
 $boot = true;
 if (!include CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'bootstrap.php') {

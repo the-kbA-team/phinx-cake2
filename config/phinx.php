@@ -11,7 +11,11 @@ $cakephpDir = \Composer\InstalledVersions::getInstallPath("cakephp/cakephp");
 // More complex case, cakephp/cakephp is replaced by another package
 if (null === $cakephpDir) {
     $composerInstalledJson = $vendorDir . DS . 'composer/installed.json';
-    $composerInstalled = json_decode(file_get_contents($composerInstalledJson));
+    $composerInstalledJsonEncoded = file_get_contents($composerInstalledJson);
+    if (!is_string($composerInstalledJsonEncoded)) {
+        throw new Exception('Could not read composer/installed.json');
+    }
+    $composerInstalled = json_decode($composerInstalledJsonEncoded);
     foreach ($composerInstalled->packages as $packageInfo) {
         if (isset($packageInfo->replace->{'cakephp/cakephp'})) {
             $cakephpDir = \Composer\InstalledVersions::getInstallPath($packageInfo->name);
